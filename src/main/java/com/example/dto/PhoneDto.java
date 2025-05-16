@@ -1,6 +1,6 @@
 package com.example.dto;
 
-public class PhoneRequest {
+public class PhoneDto {
 
     private Long number;
     private Integer citycode;

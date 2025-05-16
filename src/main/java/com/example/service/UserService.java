@@ -9,4 +9,10 @@ public interface UserService {
     UserResponse registerUser(SignUpRequest request);
 
     UserResponse login(String token);
+
+    UserResponse signUp(SignUpRequest request);
+
+    UserResponse getUserByEmail(String email);
+
+
 }

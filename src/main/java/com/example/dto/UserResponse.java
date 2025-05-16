@@ -1,8 +1,11 @@
 package com.example.dto;
 
+import com.example.model.User;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class UserResponse {
 
@@ -10,11 +13,11 @@ public class UserResponse {
     private LocalDateTime created;
     private LocalDateTime lastLogin;
     private String token;
-    private boolean isActive;
+    private Boolean isActive;
     private String name;
     private String email;
     private String password;
-    private List<PhoneRequest> phones;
+    private List<PhoneDto> phones;
 
     // Getters y setters
     public UUID getId() { return id; }
@@ -29,8 +32,12 @@ public class UserResponse {
     public String getToken() { return token; }
     public void setToken(String token) { this.token = token; }
 
-    public boolean isActive() { return isActive; }
-    public void setActive(boolean active) { isActive = active; }
+    public Boolean getIsActive() {
+        return isActive;
+    }
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
+    }
 
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
@@ -41,7 +48,26 @@ public class UserResponse {
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
 
-    public List<PhoneRequest> getPhones() { return phones; }
-    public void setPhones(List<PhoneRequest> phones) { this.phones = phones; }
+    public List<PhoneDto> getPhones() { return phones; }
+    public void setPhones(List<PhoneDto> phones) { this.phones = phones; }
+
+    public UserResponse(User user, String token) {
+        this.id = user.getId();
+        this.created = user.getCreated();
+        this.lastLogin = user.getLastLogin();
+        this.token = token;
+        this.isActive = user.getIsActive();
+        this.name = user.getName();
+        this.email = user.getEmail();
+        this.password = user.getPassword();
+        this.phones = user.getPhones() != null ?
+                user.getPhones().stream().map(phone -> {
+                    PhoneDto dto = new PhoneDto();
+                    dto.setNumber(phone.getNumber());
+                    dto.setCitycode(phone.getCitycode());
+                    dto.setContrycode(phone.getContrycode());
+                    return dto;
+                }).collect(Collectors.toList()) : null;
+    }
 }
 

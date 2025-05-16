@@ -24,7 +24,8 @@ public class User {
     private LocalDateTime created;
     private LocalDateTime lastLogin;
     private String token;
-    private boolean isActive;
+
+    private Boolean isActive;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Phone> phones;
@@ -51,8 +52,12 @@ public class User {
     public String getToken() { return token; }
     public void setToken(String token) { this.token = token; }
 
-    public boolean isActive() { return isActive; }
-    public void setActive(boolean active) { isActive = active; }
+    public Boolean getIsActive() {
+        return isActive;
+    }
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
+    }
 
     public List<Phone> getPhones() { return phones; }
     public void setPhones(List<Phone> phones) {
@@ -60,6 +65,13 @@ public class User {
         if (phones != null) {
             phones.forEach(p -> p.setUser(this));
         }
+    }
+
+    @PrePersist
+    public void prePersist() {
+        created = LocalDateTime.now();
+        lastLogin = created;
+        isActive = true;
     }
 }
 

@@ -21,7 +21,7 @@ public class SignUpRequest {
     )
     private String password;
 
-    private List<PhoneRequest> phones;
+    private List<PhoneDto> phones;
 
     // Getters y setters
     public String getName() { return name; }
@@ -33,6 +33,6 @@ public class SignUpRequest {
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
 
-    public List<PhoneRequest> getPhones() { return phones; }
-    public void setPhones(List<PhoneRequest> phones) { this.phones = phones; }
+    public List<PhoneDto> getPhones() { return phones; }
+    public void setPhones(List<PhoneDto> phones) { this.phones = phones; }
 }
